@@ -16,22 +16,32 @@ Usage
 ------------------------------------------------------------------------
 
 
-### Subcmd 1
+### join
 
-Subcmd description
+Join multiple images into one PDF file.
 
 ~~~shell
-> i2p subcmd1 --option1 --argopt1 arg -v
+> i2p join -o <OUTPUT.PDF> -d <DPI> <IMGFILE|IMGDIR> [IMGFILE|IMGDIR...]
 ~~~
 
-* -o, --option1
-    * description
-* -a, --argopt1 ARG
-    * description
-* -c, --config CFG
-    * CFG: Path to Configuration File (default: img2pdf.yml)
+* -c, --config <cfg>
+    * Configuration File (default: img2pdf.yml)
+* -o, --out <out>
+    * output filename for the generated PDF
+* -t, --toc <toc>
+    * toc file to populate PDF outline (TBD)
+* -e, --ext <ext>
+    * file extensions to pick up when parsing directories.
+      directories will be searched for all files using this extensions.
+    * can set multiple items.
+* -d, --dpi <dpi>
+    * pixel density of input image in dpi.  used to calculate image width and 
+      height in mm.
 * -v, --verbose
-    * verbosity
+    * output in verbose mode
+    * specify twice to get debug messages
+* -h, --help
+    * Show help message
 
 ### Configuration file
 
@@ -42,21 +52,30 @@ The command line options will take precedence over the configuration parameters.
 following shows the default settings of the configuration
 
 ~~~yaml
-option1: option1param
-option2: option2param
-optionArray:
-  - item1
-  - item2
-optionDict:
-  key1: item1
-  key2: item2
-  key3: item3
+out: output.pdf
+toc: toc.yml
+dpi: 96
+ext:
+  - jpg
+  - jpeg
+  - png
+~~~
+
+### TOC File
+
+consist of dictionary with following structure:
+
+~~~yaml
+pagenum:
+    Level: Num
+    Title: Title
 ~~~
 
 Known Issues
 ------------------------------------------------------------------------
 
-Need to be implemented.
+* TODO: TOC implementation
+* Refactor code
 
 Development
 ------------------------------------------------------------------------
