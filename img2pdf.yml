@@ -1,0 +1,6 @@
+out: output.pdf
+toc: toc.yml
+ext:
+  - jpg
+  - jpeg
+  - png
