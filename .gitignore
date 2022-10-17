@@ -105,3 +105,4 @@ venv.bak/
 *.un~
 test/
 venv.bat
+img2pdf.yml
