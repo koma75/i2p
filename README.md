@@ -3,7 +3,11 @@ img2pdf
 
 Convert set of images to PDF.
 
-ADD MY CLI DETAIL DESCRIPTION HERE
+This tool is intended to merge multiple scanned images into one PDF file.
+The tool will take multiple images in order, a directory of images or 
+both and merge them into a PDF file in the order it is given.
+Images in the directory will be searched by specified extensions and
+sorted by name.
 
 Installation
 ------------------------------------------------------------------------
@@ -21,7 +25,18 @@ Usage
 Join multiple images into one PDF file.
 
 ~~~shell
-> i2p join -o <OUTPUT.PDF> -d <DPI> <IMGFILE|IMGDIR> [IMGFILE|IMGDIR...]
+Usage: i2p join [OPTIONS] [[IMG] IMG...]
+
+  join images into one PDF file
+
+Options:
+  -c, --config <cfg>  Configuration File (default: img2pdf.yml)
+  -o, --out <out>     output filename for the generated PDF
+  -t, --toc <toc>     toc file to populate PDF outline
+  -e, --ext <ext>     file extensions to pick up when parsing directories
+  -d, --dpi <dpi>     pixel density of input image in dpi
+  -v, --verbose       output in verbose mode
+  -h, --help          Show this message and exit.
 ~~~
 
 * -c, --config <cfg>
@@ -42,6 +57,12 @@ Join multiple images into one PDF file.
     * specify twice to get debug messages
 * -h, --help
     * Show help message
+
+### addtoc
+
+T.B.D.
+
+Subcommand to just add toc to already created pdf.
 
 ### Configuration file
 
