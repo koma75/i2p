@@ -61,8 +61,7 @@ Options:
 ### addtoc
 
 T.B.D.
-
-Subcommand to just add toc to already created pdf.
+Subcommand to just add toc to already created pdf? (may need to use some other library.)
 
 ### Configuration file
 
@@ -88,15 +87,33 @@ consist of dictionary with following structure:
 
 ~~~yaml
 pagenum:
-    Level: Num
-    Title: Title
+    - Level: Num
+      Title: Title
+~~~
+
+Note, each entry inside the page must be an array of dictionaries.
+This is to allow multiple ToC item to be inserted in one page.
+
+Example may be as follows:
+
+~~~yaml
+1:
+    - Level: 0
+      Title: 'Getting Started'
+    - Level: 1
+      Title: 'Installation'
+3:
+    - Level: 1
+      Title: 'Hello, World'
+5:
+    - Level: 0
+      Title: Programming a Guessing Game
 ~~~
 
 Known Issues
 ------------------------------------------------------------------------
 
-* TODO: TOC implementation
-* Refactor code
+* Code needs refactoring
 
 Development
 ------------------------------------------------------------------------

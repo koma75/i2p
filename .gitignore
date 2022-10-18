@@ -106,3 +106,4 @@ venv.bak/
 test/
 venv.bat
 img2pdf.yml
+toc.yml

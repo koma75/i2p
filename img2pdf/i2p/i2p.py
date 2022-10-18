@@ -178,6 +178,16 @@ def join(kwargs):
             # is a file.
             images.append(path)
     pout(images, verbose, Level.DEBUG)
+
+    # read in TOC data if available
+    try:
+        with open(conf['toc'], encoding='utf-8') as tocfile:
+            toc = yaml.safe_load(tocfile)
+    except Exception as e:
+        # if toc cannot be read, just make empty TOC
+        pout(e, verbose, Level.WARNING)
+        toc = {} 
+
     # for each file in list, get width/height, calculate size in mm, 
     # use w/h to create new pdf page and add the image to the pdf
     # if toc file is available, parse and append to the outline of the PDF file.
@@ -187,7 +197,7 @@ def join(kwargs):
     pageNum = 0
     for path in images:
         try:
-            pout("process {path}", verbose, Level.DEBUG)
+            pout("process {path}".format(path=path), verbose, Level.DEBUG)
             imageFile = Image.open(path)
         except Exception as e:
             pout(e, verbose, Level.WARNING)
@@ -199,7 +209,10 @@ def join(kwargs):
         pageNum += 1
 
         pdf.add_page(orientation='P', format=(iw,ih))
-        # TODO: add code to insert TOC
+        if pageNum in toc:
+            # If there is an entry in the toc for the page, 
+            for item in toc[pageNum]:
+                pdf.start_section(item['title'], item['level'])
         try:
             pdf.image(path, 0, 0, iw, ih)
         except Exception as e:
