@@ -83,12 +83,15 @@ ext:
 
 ### TOC File
 
-consist of dictionary with following structure:
+consist of dictionary with following structure, where `level` is the 
+outline level (starting from 0), and `title` is the title of the 
+outline and will be inserted at `pagenum`.  The keys are case 
+sensitive.
 
 ~~~yaml
 pagenum:
-    - Level: Num
-      Title: Title
+    - level: Num
+      title: 'Title'
 ~~~
 
 Note, each entry inside the page must be an array of dictionaries.
@@ -98,16 +101,16 @@ Example may be as follows:
 
 ~~~yaml
 1:
-    - Level: 0
-      Title: 'Getting Started'
-    - Level: 1
-      Title: 'Installation'
+    - level: 0
+      title: 'Getting Started'
+    - level: 1
+      title: 'Installation'
 3:
-    - Level: 1
-      Title: 'Hello, World'
+    - level: 1
+      title: 'Hello, World'
 5:
-    - Level: 0
-      Title: Programming a Guessing Game
+    - level: 0
+      title: 'Programming a Guessing Game'
 ~~~
 
 Known Issues
