@@ -185,7 +185,8 @@ def join(kwargs):
             toc = yaml.safe_load(tocfile)
     except Exception as e:
         # if toc cannot be read, just make empty TOC
-        pout(e, verbose, Level.WARNING)
+        pout(e, verbose, Level.ERROR)
+        pout('ToC Will not be populated due to toc file read error', verbose, Level.WARNING)
         toc = {} 
 
     # for each file in list, get width/height, calculate size in mm, 
@@ -195,28 +196,35 @@ def join(kwargs):
     pixelsize = pixelmm(conf['dpi'])
     pout("pixelsize: {size}".format(size=pixelsize), verbose, Level.DEBUG)
     pageNum = 0
-    for path in images:
-        try:
-            pout("process {path}".format(path=path), verbose, Level.DEBUG)
-            imageFile = Image.open(path)
-        except Exception as e:
-            pout(e, verbose, Level.WARNING)
-            continue
-        iw, ih = imageFile.size
-        # convert pixel in mm with 1px=0.264483 mm (assuming 96dpi)
-        iw, ih = float(iw * pixelsize), float(ih * pixelsize)
-        pout("width: {width}, height: {height}".format(width=iw, height=ih), verbose, Level.DEBUG)
-        pageNum += 1
 
-        pdf.add_page(orientation='P', format=(iw,ih))
-        if pageNum in toc:
-            # If there is an entry in the toc for the page, 
-            for item in toc[pageNum]:
-                pdf.start_section(item['title'], item['level'])
-        try:
-            pdf.image(path, 0, 0, iw, ih)
-        except Exception as e:
-            pout(e, verbose, Level.WARNING)
+    with click.progressbar(images) as imgs:
+        for path in imgs:
+            try:
+                pout("process {path}".format(path=path), verbose, Level.DEBUG)
+                imageFile = Image.open(path)
+            except Exception as e:
+                pout(e, verbose, Level.WARNING)
+                continue
+            iw, ih = imageFile.size
+            # convert pixel in mm with 1px=0.264483 mm (assuming 96dpi)
+            iw, ih = float(iw * pixelsize), float(ih * pixelsize)
+            pout("width: {width}, height: {height}".format(width=iw, height=ih), verbose, Level.DEBUG)
+            pageNum += 1
+
+            pdf.add_page(orientation='P', format=(iw,ih))
+            if pageNum in toc:
+                # If there is an entry in the toc for the page, 
+                for item in toc[pageNum]:
+                    try:
+                        pdf.start_section(item['title'], item['level'])
+                    except Exception as e:
+                        pout("toc parse error: {err}".format(err=e),verbose,Level.WARNING)
+            try:
+                pdf.image(path, 0, 0, iw, ih)
+            except Exception as e:
+                pout(e, verbose, Level.WARNING)
+
+    # Write out result
     try:
         pdf.output(conf['out'], 'F')
     except Exception as e:
