@@ -34,17 +34,17 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-exec(compile(open('img2pdf/version.py', "rb").read(),'img2pdf/version.py', 'exec'))
+exec(compile(open('i2p/version.py', "rb").read(),'i2p/version.py', 'exec'))
 
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='img2pdf',
+    name='i2p',
     version=__version__,
     description='Convert set of images to PDF.',
     long_description=long_description,
-    url='https://github.com/koma75/img2pdf/',
+    url='https://github.com/koma75/i2p/',
     author='koma75',
     author_email='omoikane@path-works.net',
     license='BSD 2-Clause',
@@ -77,7 +77,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'i2p=img2pdf.cli:main',
+            'i2p=i2p.cli:main',
         ],
     },
 )
