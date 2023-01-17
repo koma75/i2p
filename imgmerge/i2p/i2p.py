@@ -108,6 +108,12 @@ def createConf(conf, verbose):
 def pixelmm(dpi):
     return float(1/dpi)*25.4
 
+numbers = re.compile(r'(\d+)')
+def numericalSort(value):
+    parts = numbers.split(value)
+    parts[1::2] = map(int, parts[1::2])
+    return parts
+
 def join(kwargs):
     """Convert set of images to PDF.
     Implementation.
@@ -135,8 +141,6 @@ def join(kwargs):
     pout("Read config file:", verbose, Level.DEBUG)
     pout(pformat(conf,depth=3,indent=4), verbose, Level.DEBUG)
     # 1. Now parse kwargs
-    # TODO: it may be a good time to merge the options specified in kwargs into conf to put all
-    #       execution parameters in one place.
     conf['ext'].extend(kwargs['ext'])
     conf['ext'] = sorted(set(conf['ext']))
     conf['img'] = kwargs['img']
@@ -172,8 +176,7 @@ def join(kwargs):
                     glob.glob(os.path.join(
                         path,
                         "*.{ext}".format(ext=extension))))
-            pass
-            images.extend(sorted(set(tmpImages)))
+            images.extend(sorted(set(tmpImages)), key=numericalSort)
         else:
             # is a file.
             images.append(path)
