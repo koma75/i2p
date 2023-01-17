@@ -35,7 +35,7 @@ import click
 # Import the sub-command implementations
 from .i2p import i2p
 # Import the version information
-from img2pdf.version import __version__
+from imgmerge.version import __version__
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 @click.group(context_settings=CONTEXT_SETTINGS)
@@ -47,10 +47,10 @@ def cli():
 @cli.command()
 @click.argument('img', nargs=-1, type=click.Path(exists=True))
 @click.option(
-    '--config', '-c', default="./img2pdf.yml",
+    '--config', '-c', default="./i2p.yml",
     type=click.Path(exists=False, dir_okay=False, writable=True, resolve_path=True),
     metavar='<cfg>',
-    help='Configuration File (default: img2pdf.yml)'
+    help='Configuration File (default: i2p.yml)'
     )
 @click.option(
     '--out', '-o', type=str,

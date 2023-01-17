@@ -1,4 +1,4 @@
-img2pdf
+imgmerge
 ========================================================================
 
 Convert set of images to PDF.
@@ -13,7 +13,7 @@ Installation
 ------------------------------------------------------------------------
 
 ~~~shell
-> pip install img2pdf
+> pip install imgmerge
 ~~~
 
 Usage
@@ -30,7 +30,7 @@ Usage: i2p join [OPTIONS] [[IMG] IMG...]
   join images into one PDF file
 
 Options:
-  -c, --config <cfg>  Configuration File (default: img2pdf.yml)
+  -c, --config <cfg>  Configuration File (default: i2p.yml)
   -o, --out <out>     output filename for the generated PDF
   -t, --toc <toc>     toc file to populate PDF outline
   -e, --ext <ext>     file extensions to pick up when parsing directories
@@ -40,7 +40,7 @@ Options:
 ~~~
 
 * -c, --config <cfg>
-    * Configuration File (default: img2pdf.yml)
+    * Configuration File (default: i2p.yml)
 * -o, --out <out>
     * output filename for the generated PDF
 * -t, --toc <toc>
@@ -65,7 +65,7 @@ Subcommand to just add toc to already created pdf? (may need to use some other l
 
 ### Configuration file
 
-YAML based configuration file (default file name: img2pdf.yaml)
+YAML based configuration file (default file name: i2p.yaml)
 is used to store default settings for the tool.
 The command line options will take precedence over the configuration parameters.
 
@@ -131,11 +131,11 @@ First, enter venv and install the local package and pyinstaller
 ~~~shell
 >. .venv/Scripts/activate
 (.venv) >pip install .
-Processing /path/to/proj/img2pdf
+Processing /path/to/proj/imgmerge
 ~snip~
-Installing collected packages: img2pdf
-    Running setup.py install for img2pdf ... done
-Successfully installed img2pdf-0.1.0
+Installing collected packages: imgmerge
+    Running setup.py install for imgmerge ... done
+Successfully installed imgmerge-0.1.0
 
 (.venv) >pip install pyinstaller
 ~snip~
@@ -145,12 +145,12 @@ Successfully installed pyinstaller-3.6
 Use pyinstaller to build the exe file.
 
 ~~~shell
-(.venv) >pyinstaller img2pdf\cli.py --onefile --name i2p
+(.venv) >pyinstaller imgmerge\cli.py --onefile --name imgmerge
 ~snip~
 13691 INFO: Building EXE from EXE-00.toc completed successfully.
 ~~~
 
-Executable should be ready in dist/i2p.exe
+Executable should be ready in dist/imgmerge.exe
 
 ### Versioning
 
@@ -160,7 +160,7 @@ minor/patch versions until we deploy the tool to production
 (and reach 1.0.0).
 The interface relevant to versioning is whatever defined in this
 document's "Usage" section (includes all (sub)commands, their cli arguments,
-and the format of the configuration file "img2pdf.yaml").
+and the format of the configuration file "imgmerge.yaml").
 
 Version History
 ------------------------------------------------------------------------
