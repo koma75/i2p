@@ -176,7 +176,7 @@ def join(kwargs):
                     glob.glob(os.path.join(
                         path,
                         "*.{ext}".format(ext=extension))))
-            images.extend(sorted(set(tmpImages)), key=numericalSort)
+            images.extend(sorted(set(tmpImages), key=numericalSort))
         else:
             # is a file.
             images.append(path)

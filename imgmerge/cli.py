@@ -47,10 +47,10 @@ def cli():
 @cli.command()
 @click.argument('img', nargs=-1, type=click.Path(exists=True))
 @click.option(
-    '--config', '-c', default="./i2p.yml",
+    '--config', '-c', default="./imgmerge.yml",
     type=click.Path(exists=False, dir_okay=False, writable=True, resolve_path=True),
     metavar='<cfg>',
-    help='Configuration File (default: i2p.yml)'
+    help='Configuration File (default: imgmerge.yml)'
     )
 @click.option(
     '--out', '-o', type=str,
