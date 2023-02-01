@@ -1,6 +1,8 @@
 imgmerge
 ========================================================================
 
+**TOOL CONSOLIDATED TO https://github.com/koma75/imgtk**
+
 Convert set of images to PDF.
 
 This tool is intended to merge multiple scanned images into one PDF file.
